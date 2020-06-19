@@ -1,0 +1,72 @@
+<!doctype html>
+<html>
+    <head>
+        <style> /* CSS */
+            .center
+            {
+                text-align: center;
+                font-size: 130%;
+            }
+            .button
+            {
+                background-color: #4CAF50;
+                border: none;
+                color: white;
+                padding: 10px;
+                text-align: center;
+                font-size: 16px;
+                cursor: pointer;
+                border-radius: 10px;
+            }
+        </style>
+        <title>Calcolo Integrale</title>
+    </head>
+    <body>
+        <div class="center">
+            <!--Chiedo in input i dati-->
+            <label for="N">In quanti rettangoli vuoi dividere la funzione:</label>
+            <input type="text" onfocus="this.value=''" id="N" name="N"><br><br>
+
+            <label for="xa">Inserisci xa:</label>
+            <input type="text" onfocus="this.value=''" id="xa" name="xa"><br><br>
+
+            <label for="xa">Inserisci xb:</label>
+            <input type="text" onfocus="this.value=''" id="xb" name="xb"><br><br>
+
+            <button class="button" onclick="CalcIntegrale()">Calcola</button> <!--Richimo una funzione js per il calcolo-->
+
+            <p id="risultato"></p> <!--Ritorna il risultato-->
+        </div>
+
+        <script>
+            function CalcIntegrale()
+            {
+                //Prendo le variabili dall'html
+                var objN = document.getElementById("N");
+                var N = objN.value;
+
+                var obja = document.getElementById("xa");
+                var a = obja.value;
+
+                var objb = document.getElementById("xb");
+                var b = objb.value;
+
+                //Calcolo dell'integrale
+                Math.integrale = function(N, a, b)
+                {
+                    function f(x) { return Math.sin(x);} //funzione
+                    var value = 0;
+                    var value2 = 0;
+
+                    for (var i = 0; i < N; i++) { value = value + f(a+((i-(1/2))*((b-a)/N))); }
+                    value2 = ((b-a)/N)*value;
+                    return value2;
+                }
+
+                var ris = Math.integrale(parseInt(N), parseFloat(a), parseFloat(b));
+
+                document.getElementById("risultato").innerHTML = "Il risultato dell'integrale è: " + ris; //ritorno il risultato all'html
+            }
+        </script>
+    </body>
+</html>
